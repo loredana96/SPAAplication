@@ -1,5 +1,6 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {ActivatedRoute, Router, ROUTES} from '@angular/router';
+import {AfterViewChecked, Component, ViewEncapsulation} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import { CodeHilightService } from '../services/code-hilight.service';
 
 declare var ng: any;
 
@@ -11,9 +12,12 @@ declare var ng: any;
   encapsulation: ViewEncapsulation.Emulated
 
 })
-export class PostsComponent implements OnInit {
-  ngOnInit() {}
+export class PostsComponent implements AfterViewChecked {
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  ngAfterViewChecked() {
+    this.codeHilightService.highlightAll();
+  }
+
+  constructor(private router: Router, private route: ActivatedRoute, public codeHilightService: CodeHilightService) {
   }
 }
